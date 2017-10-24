@@ -1,0 +1,1101 @@
+<!DOCTYPE HTML>
+<html>
+	<head>
+		<script src="assets/js/main.js"></script>
+		<title>STARS PLANNER +</title>
+		<meta charset="utf-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1" />
+		<link rel="stylesheet" href="assets/css/w3.css" />
+		<link rel="stylesheet"  href="assets/css/main_ak.css" />
+		<!-- bootstrap theme -->
+		<link href="assets/css/vendor/bootstrap-theme.css" rel="stylesheet">
+		<!-- Custom styles -->
+		<link href="assets/css/vendor/style.css" rel="stylesheet">
+		<link rel="stylesheet" href="//code.jquery.com/ui/1.12.1/themes/smoothness/jquery-ui.css">
+	</head>
+	<body>
+
+		<!-- Header -->
+		<header class="header dark-bg">
+					<!--logo start-->
+					<a class="logo">STARS <span class="lite">PLANNER+</span></a>
+					<!--logo end-->
+
+					<div class="top-nav notification-row" id="top-changeable">
+
+					</div>
+		</header>
+
+
+		<!-- topbar -->
+
+		<div class="topbar">
+			<div id="error-course-code" class="modal">
+			  <div class="modal-content">
+					<label><b style="font-size:29px;">Message:</b></label>
+			    <span class="close">&times;</span>
+			    <p id="wrong-code" style="font-size:20px;style:bold;color:black;"></p>
+			  </div>
+			</div>
+
+
+		</div>
+
+		<section id="header">
+			<div class="inner">
+				<span class="icon major fa-cloud"></span>
+				<h1 style="font-size:50px;">Welcome to <strong>STARS PLANNER +</strong></h1>
+				<p style="font-size:20px;">Stars Planner + is a tool for NTU students to facilitate timetable generation.</p>
+				<p style="font-size:20px;">Start your journey here</p>
+				<ul class="actions">
+					<li><a href="#plan" onclick="triggerAuto()" class="button scrolly btn-lg" style="vertical-align:middle;">PLAN TIMETABLE</a></li>
+				</ul>
+			</div>
+		</section>
+
+		<section id="plan" class="main style2">
+
+			<div class="container" style="width:80% !important;">
+				<!-- need to change to form not div for real implementation -->
+				<div class="w3-container">
+						<label style="color:white;margin-top:3%;font-size:20px;margin-top:70px;">Enter your courses:</label>
+
+						<div id="courseinputs">
+
+						</div>
+					<!--	<button class="btn" style="width:4%;float:left;margin-left:10px;margin-top:5px;" onclick="addCourse()">+</button>
+						<button class="btn" style="width:4%;margin-left:10px;margin-top:5px;" onclick="rmCourse()">-</button><br/> -->
+						<img src="./images/plus.png" onclick="addCourse()" width="45px" height="45px" opacity="0.5" onMouseOver="this.style.cursor='pointer'">
+						<img src="./images/minus.png" onclick="rmCourse()" width="45px" height="45px" onMouseOver="this.style.cursor='pointer'">
+
+				<button class="w3-btn w3-grey" style="width:97%;font-size:13px;margin:25px 0 20px 0;" onclick="generateTimetable(0)"/>GENERATE TIMETABLE</button>
+				</div>
+			</div>
+
+			<div class="modal" id="loader">
+					<img class="modal-content" src='images/cube.gif' id="wait" width="500px" height="300px"/></div>
+		</div>
+
+				<div class="container" style="width:80% !important;">
+					<div id='selecter' style="text-align:center;margin-bottom:15px;"></div>
+					<div id="dividable" style="margin-bottom:5%;">
+					<table id="left" >
+						<tr>
+							<th></th>
+							<th scope="col" id="mon">Monday</th>
+							<th scope="col" id="tue">Tuesday</th>
+							<th scope="col" id="wed">Wednesday</th>
+							<th scope="col" id="thu">Thursday</th>
+							<th scope="col" id="fri">Friday</th>
+						</tr>
+						<tr>
+							<th scope="row">08:30-09:00</th>
+							<td class="selectable"></td><td></td><td></td><td></td><td></td>
+
+						</tr>
+						<tr>
+							<th scope="row">09:00-09:30</th>
+							<td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr>
+							<th scope="row">09:30-10:00</th>
+								<td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr>
+							<th scope="row">10:00-10:30</th>
+								<td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr>
+							<th scope="row">10:30-11:00</th>
+								<td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr>
+							<th scope="row">11:00-11:30</th>
+								<td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr>
+							<th scope="row">11:30-12:00</th>
+								<td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr>
+							<th scope="row">12:00-12:30</th>
+								<td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr>
+							<th scope="row">12:30-13:00</th>
+								<td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr>
+							<th scope="row">13:00-13:30</th>
+							<td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr>
+							<th scope="row">13:30-14:00</th>
+							<td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr>
+							<th scope="row">14:00-14:30</th>
+							<td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr>
+							<th scope="row">14:30-15:00</th>
+							<td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr>
+							<th scope="row">15:00-15:30</th>
+							<td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr>
+							<th scope="row">15:30-16:00</th>
+							<td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr>
+							<th scope="row">16:00-16:30</th>
+							<td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr>
+							<th scope="row">16:30-17:00</th>
+							<td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr>
+							<th scope="row">17:00-17:30</th>
+							<td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr>
+							<th scope="row">17:30-18:00</th>
+							<td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr>
+							<th scope="row">18:00-18:30</th>
+							<td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr>
+							<th scope="row">18:30-19:00</th>
+							<td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr>
+							<th scope="row">19:00-19:30</th>
+							<td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr>
+							<th scope="row">19:30-20:00</th>
+							<td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr>
+							<th scope="row">20:00-20:30</th>
+							<td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr>
+							<th scope="row">20:30-21:00</th>
+							<td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr>
+							<th scope="row">21:00-21:30</th>
+							<td></td><td></td><td></td><td></td><td></td>
+						</tr>
+						<tr>
+							<th scope="row">21:30-22:00</th>
+							<td></td><td></td><td></td><td></td><td></td>
+						</tr>
+					</table>
+					<filter id="save-timetable">
+						<p style="text-align:center;color:#5F6A6A;font-size:20px;margin-bottom:0px;">Save Timetable</p>
+					<div class="select-wrapper" style="margin:10px 0 10px 0;">
+			 <select name="plan" id="plan-table" style="width:98%;margin:0 0 0 1%;font-size:14px;">
+				 <option value="0">- save to which plan -</option>
+				 <option value="1">plan 1</option>
+				 <option value="2">plan 2</option>
+				 <option value="3">plan 3</option>
+			 </select></div>
+		 <button onclick="saveTimetable()" class="w3-btn w3-block w3-light-grey w3-left-align" style="color:grey !important;margin-left:1%;margin-bottom:1%;margin-top:2%;width:30%;font-size:13px;">Save</button>
+				</filter>
+					<filter >
+						<p style="text-align:center;color:#5F6A6A;font-size:20px;margin-bottom:0px;">Course Information</p>
+						<div class="table-wrapper" style="margin:2% 2% 2% 2% ;width:148%;margin-right:0;">
+							<table id="course-info">
+								<thead>
+									<tr>
+										<th>Course</th>
+										<th>Title</th>
+										<th>Index</th>
+									</tr>
+								</thead>
+							</table>
+						</div>
+					</filter>
+					<filter id="exam">
+						<p style="text-align:center;color:#5F6A6A;font-size:20px;margin-bottom:0px;">Exam Schedule</p>
+						<div class="table-wrapper" style="margin:2% 2% 2% 2% ;width:148%;margin-right:0;">
+							<table id="examtable">
+								<thead>
+									<tr>
+										<th>Course</th>
+										<th>Date</th>
+										<th>Time</th>
+									</tr>
+								</thead>
+							</table>
+						</div>
+					</filter>
+					<filter id="filter">
+						<p style="text-align:center;color:#5F6A6A;font-size:20px;margin-bottom:5px;">Filters</p>
+						<button onclick="myFunc('day')" class="w3-btn w3-block w3-light-grey w3-left-align" style="margin-top:5px;margin-left:3px;height:40px;width:99%;color:#797D7F !important;font-size:15px;">
+						+ Free Days</button>
+						<div id="day" class="w3-hide w3-center w3-light-grey">
+						<div class="12u$(small)" id="daychoices">
+							<p style="margin:0 0 0 8px;text-align:left;padding-top:10px;"><input type="checkbox" id="free-monday" name="monday">
+							<label for="free-monday" style="font-size:15px;text-align:left;">Monday</label></p>
+							<p style="margin:0 0 0 8px;text-align:left;"><input type="checkbox" id="free-tuesday" name="tuesday">
+							<label for="free-tuesday" style="font-size:15px;text-align:left;">Tuesday</label></p>
+							<p style="margin:0 0 0 8px;text-align:left;"><input type="checkbox" id="free-wednesday" name="wednesday">
+							<label for="free-wednesday" style="font-size:15px;text-align:left;">Wednesday</label></p>
+							<p style="margin:0 0 0 8px;text-align:left;"><input type="checkbox" id="free-thursday" name="thursday">
+							<label for="free-thursday" style="font-size:15px;text-align:left;">Thursday</label></p>
+							<p style="margin:0 0 0 8px;text-align:left;"><input type="checkbox" id="free-friday" name="friday">
+							<label for="free-friday" style="font-size:15px;text-align:left;margin-bottom:10px;">Friday</label></p>
+						</div>
+					</div>
+
+						<button onclick="myFunc('time')" class="w3-btn w3-block w3-light-grey w3-left-align" style="margin-top:5px;margin-left:3px;height:40px;width:99%;color:#797D7F !important;font-size:15px;">
+						+ Free Timings</button>
+						<div id="time" class="w3-hide w3-center w3-light-grey">
+							<!-- select first day-->
+							<div id="timechoices">
+							<div id="choice1">
+							<div class="select-wrapper" style="margin:10px 0 10px 0;">
+								<select name="choose-day" id="day-1" style="width:98%;margin:0 0 0 1%;font-size:14px;">
+									<option value="">- Choose a day -</option>
+									<option value="1">Monday</option>
+									<option value="1">Tuesday</option>
+									<option value="1">Wednesday</option>
+									<option value="1">Thursday</option>
+									<option value="1">Friday</option>
+								</select>
+							</div>
+							<!-- select first day timing -->
+							<div class="row uniform 50%">
+								<div class="4u 12u$(xsmall)">
+									<div class="select-wrapper" style="margin:10px 0 10px 0;">
+										<select name="choose-day" id="time-start-1" style="height:40px;width:98%;margin:0 0 0 10px;font-size:14px;padding-left:20px;">
+											<option value="1">0830</option>
+											<option value="1">0930</option>
+											<option value="1">1030</option>
+											<option value="1">1130</option>
+											<option value="1">1230</option>
+											<option value="1">1330</option>
+											<option value="1">1430</option>
+											<option value="1">1530</option>
+											<option value="1">1630</option>
+											<option value="1">1730</option>
+											<option value="1">1830</option>
+											<option value="1">1930</option>
+											<option value="1">2030</option>
+											<option value="1">2130</option>
+										</select>
+									</div>
+								</div>
+								<div class="4u 12u$(xsmall)">
+									<div class="select-wrapper" style="margin:10px 0 10px 0;">
+										<select name="choose-day" id="time-end-1" style="height:40px;width:98%;margin:0 0 0 10px;font-size:14px;padding-left:20px;">
+											<option value="1">0830</option>
+											<option value="1">0930</option>
+											<option value="1">1030</option>
+											<option value="1">1130</option>
+											<option value="1">1230</option>
+											<option value="1">1330</option>
+											<option value="1">1430</option>
+											<option value="1">1530</option>
+											<option value="1">1630</option>
+											<option value="1">1730</option>
+											<option value="1">1830</option>
+											<option value="1">1930</option>
+											<option value="1">2030</option>
+											<option value="1">2130</option>
+										</select>
+									</div>
+								</div>
+							</div>
+
+						</div>
+					</div>
+					<!--<button onclick="addMoreChoice()" class="button-small" style="color:black !important;background-color:#E5E7E9;margin-bottom:10px;margin-top:10px;float:right;font-size:13px;">ADD MORE</button> -->
+					<img src="./images/minus.png" onclick="rmDateTime()" width="45px" float="right" align="right" height="45px" onMouseOver="this.style.cursor='pointer'">
+					<img src="./images/plus.png" width="45px" height="45px" align="right"  onMouseOver="this.style.cursor='pointer'" onclick="addMoreChoice()">
+					</div>
+
+						<button onclick="myFunc('class')" class="w3-btn w3-block w3-light-grey w3-left-align" style="margin-top:5px;margin-left:3px;height:40px;width:99%;color:#797D7F !important;font-size:15px;">
+						+ Fix Indexes</button>
+						<div id="class" class="w3-hide w3-center w3-light-grey">
+						<div class="12u$(small)" id="coursechoices" style="margin-left:2%;">
+						</div>
+
+						</div>
+						<button onclick="generateTimetable(1)" class="w3-btn w3-block w3-light-grey w3-left-align"  style="color:grey !important;margin-left:1%;margin-bottom:1%;margin-top:2%;width:30%;font-size:13px;">
+						Apply</button>
+					 </filter>
+
+
+			<!--		 <button class="w3-grey" style="margin-left:2%;margin-top:2%;width:30%;font-size:15px;">save to my timetable</button> -->
+
+				</div>
+			</div>
+
+		</section>
+
+		<!-- Footer -->
+		<section id="footer">
+			<div class 8u 12u$(xsmall)>
+				<h3> Contact Us </h3>
+				<p> Address: Nanyang Technological University </p>
+				<p> Email: daq1130@gmail.com </p>
+			</div>
+			<ul class="copyright">
+				<li>&copy; Tigersharks 2017</li>
+			</ul>
+		</section>
+
+		<!-- Scripts -->
+		<script src="assets/js/jquery.min.js"></script>
+		<script src="assets/js/jquery.scrolly.min.js"></script>
+		<script src="assets/js/skel.min.js"></script>
+		<script src="assets/js/util.js"></script>
+		<script src="assets/js/main.js"></script>
+
+		<!-- script from vendor -->
+		<script src="//code.jquery.com/jquery-1.12.4.js"></script>
+		<script src="//code.jquery.com/ui/1.12.1/jquery-ui.js"></script>
+
+		<script src="assets/js/myjs.js"></script>
+    <script src="assets/js/vendor/jquery.js"></script>
+		<script src="assets/js/vendor/jquery-ui-1.10.4.min.js"></script>
+    <script src="assets/js/vendor/jquery-1.8.3.min.js"></script>
+    <script type="text/javascript" src="assets/js/vendor/jquery-ui-1.9.2.custom.min.js"></script>
+    <!-- bootstrap -->
+    <script src="assets/js/vendor/bootstrap.min.js"></script>
+    <!-- nice scroll -->
+   <script src="assets/js/vendor/jquery.scrollTo.min.js"></script>
+    <script src="assets/js/vendor/jquery.nicescroll.js" type="text/javascript"></script> -->
+    <!--custome script for all page-->
+    <script src="assets/js/vendor/scripts.js"></script>
+
+		<script>
+		var finalResult = "";
+		var courseList = [];
+		var indexFilter = [];
+		var userID = "a";
+
+
+
+		// display loader and top-changeable
+		$(document).ready(function(){
+			// display loader
+			var modal = document.getElementById('loader');
+			$(document).ajaxStart(function(){
+						modal.style.display = "block";
+				$("#wait").css("display", "block");
+			});
+			$(document).ajaxComplete(function(){
+				$("#wait").css("display", "none");
+						modal.style.display = "none";
+			});
+
+			// display top-changeable
+			checkTopDisplay();
+			//checkTimetableDisplay();
+
+			// get all courses
+			$.ajax({
+				url:"./plan/processTimetable.php",
+				type:"POST",
+				data:{action:'get_courses'},
+				success:function(result){
+					courseList = result.split("|");
+				}
+			/*	error: function(XMLHttpRequest, textStatus, errorThrown) {
+					alert("Status: " + textStatus); alert("Error: " + errorThrown);
+				}*/
+				});
+
+			addCourse();
+
+				// end of document ready load
+		});
+
+		function saveTimetable(){
+			$.ajax({
+			url:"./login/login.php",
+			type:"POST",
+			data:{action:'check_status'},
+			success:function(result){
+				if(result =="ERR_LOGIN_INVALID"){
+				 displayMsg(3,"You need to log in first.");
+				}else{
+				var indexBox = document.getElementById("coursechoices");
+				var indexArr = [];
+				var elements = indexBox.getElementsByTagName('input');
+				for(i=0; i<elements.length; i++){
+						indexArr.push(elements[i].name);
+				}
+				var indexStr = indexArr.join("|");
+				var e = document.getElementById("plan-table");
+				var plan_id = e.options[e.selectedIndex].value;
+				if(plan_id == 0){
+					displayMsg(3,"Please choose a plan to save in.");
+				}else{
+					$.ajax({
+						url:"./plan/processTimetable.php",
+						type:"POST",
+						data:{action:'save_timetable',user_email:userID,index:indexStr,plan_id:plan_id},//debug
+						success:function(){
+							displayMsg(3,"Plan has been saved successfully!");
+					}});
+				}
+			}}});
+		}
+
+		function triggerAuto(){
+			$(".inputs").autocomplete({
+				source:courseList
+			});
+		}
+
+		function checkTopDisplay(){
+		var top = document.getElementById("top-changeable");
+		$.ajax({
+			url:"./login/login.php",
+			type:"POST",
+			data:{action:'check_status'},
+			success:function(result){
+				if(result =="ERR_LOGIN_INVALID"){
+					top.innerHTML = '<button id= "login-button-main"  class="button scrolly w3-light-blue" onclick="document.getElementById(\'id01\').style.display=\'block\' " style="width:auto;">Log-in</button>\
+													<div id="id01" class="modal"><form class="modal-content animate" ><div class="imgcontainer">\
+													<span onclick="document.getElementById("id01").style.display=\'none\' " class="close" title="Close Modal">&times;</span>\
+													</div><p id="error-message"><br/></p><div class="login-container"><label><b>Username</b></label><input class="login-input" type="text" placeholder="Enter Username" id="username" required>\
+													<label style="margin-top:20px;"><b>Password</b></label><input class="login-input" type="password" id="pwd" placeholder="Enter Password"required>\
+													<button id= "login-button" class="button scrolly w3-light-green" type="submit"  style="margin-top:20px;" onclick="login()">Login</button></div>\
+													<div class="login-container" style="background-color:#f1f1f1">\
+													<button type="button" onclick="document.getElementById(\'id01\').style.display=\'none\'" class="cancelbtn w3-light-grey">Cancel</button>\
+													<button type="button" onclick="document.getElementById(\'id01\').style.display=\'none\'" class="cancelbtn w3-yellow" style="margin-left:30%;">Register Now</button>\
+													</div></form></div>';
+				}else{
+					top.innerHTML = '<ul class="nav pull-right top-menu"><li class="dropdown">\
+													<a data-toggle="dropdown" class="dropdown-toggle" href="#">\
+													<span id="user-id" class="username">'+result+'</span>\
+													<b class="caret"></b></a><ul class="dropdown-menu extended logout">\
+													<div class="log-arrow-up"></div><li>\
+													<button onclick="retrieveTimetable()" ><i class="icon_mail_alt"></i> My Timetables</button>\
+													</li><li><button onclick="logout()"<i class="icon_key_alt"></i> Log Out</button></li></ul></li></ul>';
+					userID = result;
+				}
+			}/*,
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					alert("Status: " + textStatus); alert("Error: " + errorThrown);
+				}*/
+			});
+		}
+
+
+		function retrieveTimetable(){
+			// for user to retrive their saved timetable
+			var idBox = document.getElementById("user-id");
+			var id = idBox.innerHTML;
+			$.ajax({
+				url:"./plan/processTimetable.php",
+				type:"POST",
+				data:{action:'load_timetable', user_email:id},
+				success:function(result){
+					if(result == "ERR_NORECORD"){
+						displayMsg(3,"No timetable saved yet.");
+						return;
+					}else{
+						finalResult = JSON.parse(result);
+						generate(0,0);
+						}
+					}
+				});
+			}
+
+		function login(){
+
+			$.ajax({
+				url:"./login/login.php",
+				type:"POST",
+				data:{action:'login',email:document.getElementById("username").value,password:document.getElementById("pwd").value},
+				success:function(result){
+					if(result=="ERR_LOGIN_FAILED"){
+						var message = document.getElementById("error-message");
+						message.innerHTML = "";
+						alert("Log in fail");
+						return;
+					}else{
+					 userID = result;
+					}
+					}
+				});
+			 checkTopDisplay();
+			 //checkTimetableDisplay();
+		}
+
+		function logout(){
+			$.ajax({
+				url:"./login/login.php",
+				type:"POST",
+				data:{action:'logout'},
+				success:function(){
+					userID = "a";
+					displayMsg(3,"You have been logged out successfully.");
+				}/*,
+				error: function(XMLHttpRequest, textStatus, errorThrown) {
+					alert("Status: " + textStatus); alert("Error: " + errorThrown);
+				}*/
+				});
+			checkTopDisplay();
+			//checkTimetableDisplay();
+		}
+
+		function displayMsg(type,msg){//display wrong code when get error message
+			// Get the modal
+			var modal = document.getElementById('error-course-code');
+			// Get the <span> element that closes the modal
+			var span = document.getElementsByClassName("close")[0];
+			//display error course codes
+			var courseMsg = document.getElementById('wrong-code');
+			if(type==1||type==0||type==3){
+				courseMsg.innerHTML = msg;
+			}else if(type==2){
+				courseMsg.innerHTML = "No combination available due to clashes in exam schedule:";
+				var clashes = msg.split("|");
+				for(i = 0; i < clashes.length; i++){
+					var element = clashes[i].split("/");
+					var dateTime = element[0];
+					var courses = element[1];
+					courseMsg.innerHTML += "<br/>"+dateTime+" - "+courses;
+				}
+			}else{
+					courseMsg.innerHTML = "Oops! Something went wrong:( Please try again.";
+				}
+
+			modal.style.display = "block";
+			// When the user clicks on <span> (x), close the modal
+			span.onclick = function() {
+			    modal.style.display = "none";
+				//	if(type==1||type==2){location.reload();}
+			}
+			// When the user clicks anywhere outside of the modal, close it
+			window.onclick = function(event) {
+			    if (event.target == modal) {
+			        modal.style.display = "none";
+						//	if(type==1||type==2){location.reload();}
+			    }
+			}
+		}
+
+	  //post php for timetable generation
+		function generateTimetable(hasFilter){
+			var courseIndexes = document.getElementById("courseinputs");
+			var codes = courseIndexes.getElementsByTagName("input");
+			var codeString = "";
+			var codeArray = new Array();
+			for(i=0; i<codes.length; i++){
+				var code = codes[i].value.toUpperCase();
+				if(courseList.indexOf(code)>-1){
+					var string = codes[i].value;
+					codeArray.push(string);
+				}
+			}
+			var codeSet = new Set(codeArray);
+			if(codeSet.size == codeArray.length && codeSet.size == codes.length){//no duplicate, no invalid
+				var codeString = codeArray.join("|");
+				var filterString = sendFilter();
+				$.ajax({
+					url:"./plan/processTimetable.php",
+					type:"POST",
+					data:{action:'plantimetable',course_code:codeString,free_day_time:filterString[0],fixed_index:filterString[1]},
+					success:function(result){
+						if(result.substr(0,5)=="ERR_C"){
+							displayMsg(0,"Please only input valid course codes");
+							return;
+						}else if(result.substr(0,5)=="ERR_T"){
+							if(filterString[2] == 0){
+								displayMsg(1,"No combinations available due to clashes in timetable");
+							}else{
+								displayMsg(3,"No combinations available due to filter options");
+								return;
+							}
+						}else if(result.substr(0,5)=="ERR_E"){
+							displayMsg(2,result.substr(9,));
+						}else{
+							finalResult = JSON.parse(result);
+							generate(0,0);
+						}
+					}/*,error: function(XMLHttpRequest, textStatus, errorThrown,result) {
+						alert("Status: " + textStatus); alert("Error: " + errorThrown);
+						alert(result);
+					}*/
+				});
+			}else if(codeArray.length < codes.length){// if have invalid input
+				displayMsg(0,"Please only input valid course codes");
+				return;
+			}else if(codeSet.size < codeArray.length){
+				displayMsg(0,"Please do not input duplicate course codes");
+				return;
+			}else{
+				displayMsg(0,"Oops! Something went wrong:( Please try again.");
+				return;
+			}
+		}
+
+
+		//add input box for couse selection
+		function addCourse(){
+
+			var inputDiv = document.getElementById("courseinputs");
+			var div = document.createElement("div");
+			div.innerHTML = "<input onfocus='triggerAuto()' class='w3-input inputs' type='text' style='width:10%; font-size:15px;float:left;padding:8px;background-color:lightgrey; color:#626567; font-weight:bold; margin: 5px 8px 0 0'>";
+			inputDiv.appendChild(div);
+		}
+
+		function rmCourse(){
+			var inputDiv = document.getElementById("courseinputs");
+			inputDiv.removeChild(inputDiv.lastChild);
+		}
+
+			$( ".inputs" ).autocomplete({
+		  source: courseList
+			});
+
+				function convertDay(day){
+					var dayLow = day.toLowerCase();
+					switch(dayLow){
+						case "monday":
+							return "MON";
+						case "tuesday":
+							return "TUE";
+						case "wednesday":
+							return "WED";
+						case "thursday":
+							return "THU";
+						case "friday":
+							return "FRI";
+						default:
+							return null;
+					}
+				}
+
+				function sendFilter(){
+
+					// get free days value
+					var hasFilter = 0;
+				  var dayFilter = document.getElementById("daychoices");
+					var dayCheckedValue = [];
+					var elements = dayFilter.getElementsByTagName('input');
+					for(i=0; i<elements.length; i++){
+					    if(elements[i].checked){
+								var string = convertDay(elements[i].name) + " 0830-2300";
+					      dayCheckedValue.push(string);
+					      }
+					}
+					var dayString = dayCheckedValue.join("|");
+
+					// get free timings value
+					var timeFilter = document.getElementById("timechoices");
+					var elements = timeFilter.getElementsByTagName("select");
+					var timeCheckedValue = [];
+					var i =0;
+					while(i<elements.length){
+						var dayChoice = convertDay(elements[i].options[elements[i].selectedIndex].text);
+						if (dayChoice == null){i=i+3;continue;} //if not valid, skip.
+						var startTimeChoice = elements[i+1].options[elements[i+1].selectedIndex].text;
+						var endTimeChoice = elements[i+2].options[elements[i+2].selectedIndex].text;
+						var choiceString = dayChoice.concat(" ",startTimeChoice,"-",endTimeChoice);
+						timeCheckedValue.push(choiceString);
+						i = i+3;
+					}
+					var timechoiceString = timeCheckedValue.join("|");
+					if(dayString == ""){
+						var daytimeString = timechoiceString;
+						if(timechoiceString != ""){
+							hasFilter = 1;
+						}
+					}else{
+						hasFilter = 1;
+						if(timechoiceString != ""){
+						var daytimeString = dayString.concat("|",timechoiceString);
+						}else{
+							var daytimeString = dayString;
+						}
+					}
+
+					// get fixed courses value
+					var courseFilter = document.getElementById("coursechoices");
+					var courseCheckedValue = [];
+					var elements = courseFilter.getElementsByTagName('input');
+					for(i=0; i<elements.length; i++){
+					    if(elements[i].checked){
+								hasFilter = 1;
+					       courseCheckedValue.push(elements[i].name);
+					      }
+					}
+					indexFilter = courseCheckedValue;
+					var courseString = courseCheckedValue.join("|");
+					var jointString = [];
+					jointString[0] = daytimeString;
+					jointString[1] = courseString;
+					jointString[2] = hasFilter;
+					return jointString;
+				}
+				function rmDateTime(){ // create a new free timings section
+					var wrap = document.getElementById("timechoices");
+					wrap.removeChild(wrap.lastChild);
+				}
+
+
+
+				function addMoreChoice(){ // create a new free timings section
+					var wrap = document.getElementById("timechoices");
+
+					var div = document.createElement('div');
+					div.id = "choice".concat(wrap.childElementCount);
+
+
+				//	var section = document.getElementById("choice1");
+					var choices = wrap.childElementCount;
+					var seq = choices/2;
+					var a = "<div class='select-wrapper' style='margin:10px 0 10px 0;'><select name='choose-day' id='day-'";
+					var b = "' style='width:98%;margin:0 0 0 1%;font-size:14px;'><option value=''>- Choose a day -</option>\
+						<option value='1'>Monday</option><option value='1'>Tuesday</option><option value='1'>Wednesday</option>\
+						<option value='1'>Thursday</option>\
+						<option value='1'>Friday</option></select></div><div class='row uniform 50%'>\
+						<div class='4u 12u$(xsmall)'><div class='select-wrapper' style='margin:10px 0 10px 0;'>\
+						<select name='choose-day' id='time-start-";
+					var c = "' style='height:40px;width:98%;margin:0 0 0 10px;font-size:14px;padding-left:20px;'>\
+						<option value='1'>0830</option><option value='1'>0930</option><option value='1'>1030</option>\
+						<option value='1'>1130</option><option value='1'>1230</option><option value='1'>1330</option>\
+						<option value='1'>1430</option><option value='1'>1530</option><option value='1'>1630</option>\
+						<option value='1'>1730</option><option value='1'>1830</option><option value='1'>1930</option>\
+						<option value='1'>2030</option><option value='1'>2130</option></select></div></div>\
+						<div class='4u 12u$(xsmall)'><div class='select-wrapper' style='margin:10px 0 10px 0;'>\
+						<select name='choose-day' id='time-end-";
+					var d ="' style='height:40px;width:98%;margin:0 0 0 10px;font-size:14px;padding-left:20px;'>\
+						<option value='1'>0830</option><option value='1'>0930</option><option value='1'>1030</option>\
+						<option value='1'>1130</option><option value='1'>1230</option><option value='1'>1330</option>\
+						<option value='1'>1430</option><option value='1'>1530</option><option value='1'>1630</option>\
+						<option value='1'>1730</option><option value='1'>1830</option><option value='1'>1930</option>\
+						<option value='1'>2030</option><option value='1'>2130</option></select></div></div>";
+					div.innerHTML += a + seq + b + seq + c + seq + d;
+					wrap.appendChild(div);
+				}
+
+				function previousNext(button){
+					var order = document.getElementById("selecterInner");
+					var orderArray = order.innerHTML.split(" ");
+					var currentTable = parseInt(orderArray[0]);
+					var maxTable = parseInt(orderArray[3]);
+					if(button==1){//click next
+						if(currentTable < maxTable){
+						//if not last combination, change selecter, and change table;
+						order.innerHTML = currentTable+1 +" out of "+maxTable;
+						switchTable(currentTable,0);
+						}else{
+							return;
+						}
+					}
+					else{//click previous
+						if(currentTable > 1){
+							order.innerHTML = currentTable-1+" out of "+maxTable;
+							switchTable(currentTable,-2);
+						}else{ //if already at first combination, do nothing
+							return;
+						}
+					}
+				}
+
+				function switchTable(current,direction){
+					generate(current+direction,1);
+				}
+
+				function convertTime(time){
+					var timeArray = time.split("-");
+					var startTime = timeArray[0];
+					var endTime = timeArray[1];
+					var startBlock = lookupTime(startTime);
+					var endBlock = lookupTime(endTime);
+					var timeBlock = startBlock.toString().concat("-").concat(endBlock.toString());
+					return timeBlock;
+				}
+
+				function lookupTime(time){
+					var hour = time.substring(0,2);
+					var minute = time.substring(2,);
+					var timeRow = (hour-7)*2;
+					if (minute == "00"){
+						return timeRow-2;
+					}else{
+						return timeRow-1;
+					}
+				}
+
+				function lookupDay(day){
+					switch (day){
+						case 'MON':
+							return 1;
+						case 'TUE':
+							return 2;
+						case 'WED':
+							return 3;
+						case 'THU':
+							return 4;
+						case 'FRI':
+							return 5;
+						default:
+							return null;
+					}
+				}
+
+				function resetTable(){
+					var myTable = document.getElementById("left");
+					var tableRows = 28; //number of rows of table
+
+					for (b=1; b<tableRows; b++){
+						var cols = myTable.rows[b].cells.length;
+						for (a=1; a<cols; a++){
+										myTable.rows[b].cells[a].setAttribute("rowspan",1); //reset rowspan
+										myTable.rows[b].cells[a].innerHTML = ""; //reset content to empty
+										myTable.rows[b].cells[a].bgColor = "#E5E8E8"; //reset background color
+						}
+						while(myTable.rows[b].cells.length < 6){
+								myTable.rows[b].insertCell(-1);
+						}
+						for (var i = 1, row; row = myTable.rows[i]; i++) {
+							 for (var j = 1, col; col = row.cells[j]; j++) {
+								 if(i%2==1){
+									 col.bgColor = "#E5E8E8";
+								 }else {
+									 col.bgColor = "#D5DBDB";
+								 }
+							 }
+						 }
+
+					}
+				}
+
+				function generate(pointer,isFirst){
+					resetTable();
+					/* reset table to empty */
+					var myTable = document.getElementById("left");
+					var tableRows = myTable.rows.length;
+
+					for (b=1; b<tableRows; b++){
+						var cols = myTable.rows[b].cells.length;
+						for (a=1; a<cols; a++){
+										myTable.rows[b].cells[a].setAttribute("rowspan",1);
+						}
+						if (myTable.rows[b].cells.length < 6){
+							while(myTable.rows[b].cells.length < 6){
+								myTable.rows[b].insertCell(-1);
+							}
+						}
+					}
+
+					var obj = finalResult;
+					var numOfChoices = obj.length; //total number of possible combinations
+					for (j=0;j<obj[pointer].table.length;j++){
+						var coursecode = obj[pointer].table[j].course.course_code;
+						for (k=0;k<obj[pointer].table[j].lessons.length;k++){
+							// use time and day lookup function
+							var indClass = obj[pointer].table[j].lessons[k];
+							var day = indClass.lesson_day;
+							var dayBlock = lookupDay(day);
+							var time = indClass.lesson_time;
+							var timeString = convertTime(time);
+							var timeBlock = timeString.split("-");
+							var myCell = document.getElementById("left").rows[timeBlock[0]].cells[dayBlock];
+							myCell.innerHTML = (timeBlock[1]-timeBlock[0]) + "|" + coursecode +"<br/>"+indClass.lesson_type +"<br/>"+indClass.lesson_group+"<br/>"+indClass.lesson_remark;
+							myCell.bgColor = "#AAB7B8";
+						}
+					}
+					var table = document.getElementById("left");
+					var tableMatrix = [];
+					for(var a=0; a<table.rows.length; a++) {
+			    	tableMatrix[a] = [];
+			    	for(var b=0; b<6; b++) {
+			        tableMatrix[a][b] = 1;
+			    	}
+					}
+					for (var i = 1, row; row = table.rows[i]; i++) {
+					   for (var j = 1, col; col = row.cells[j]; j++) {
+							 if(col.innerHTML == ''){
+								 continue;
+							 } // if empty, skip
+							 else{
+								 var courseArray = col.innerHTML.split("|");
+								 var courseRowSpan = courseArray[0] //assume rowspan will always be one digit
+								 col.innerHTML = courseArray[1]; // back to original content without row span
+								 table.rows[i].cells[j].setAttribute("rowspan",courseRowSpan);
+								 var statusArray = [];
+								 for(k=0; k<courseRowSpan-1; k++){
+									 statusArray[k] = 0;
+									 for(m=1; m<j; m++){
+										 if(tableMatrix[k+i+1][m]==0){statusArray[k]++;}
+									 }
+									 table.rows[k+i+1].deleteCell(j-statusArray[k]);
+									 tableMatrix[k+i+1][j] = 0;
+								}
+							 }
+					   }
+						}
+
+						//update course index filter each time
+						var classOptions = document.getElementById("coursechoices");
+						classOptions.innerHTML = " ";
+						var a = "<p style='margin:0 0 0 0;text-align:left;'><input type='checkbox' id='";
+						var b = "' name='";
+						var c = "'><label for='";
+						var d = "' style='font-size:15px;text-align:left;'>";
+						var e = "</label></p ";
+						var indexArray = [];
+						for (i=0; i<obj[pointer].table.length; i++){
+							indexArray[i] = obj[pointer].table[i].lessons[0].lesson_index;
+						}
+						var indexSet = new Set(indexArray);
+						for (var item = indexSet.values(), val= null; val=item.next().value; ) {
+							 classOptions.innerHTML += a + val + b + val + c + val + d + val + e;
+						 }
+						 if(indexFilter.length != 0){
+							 for(var i=0;i<indexFilter.length;i++){
+								 document.getElementById(indexFilter[i]).checked=true;
+							 }
+						 }
+
+						if (isFirst == 0){//if need to generate new table
+							var numOfChoices = obj.length; //total number of possible combinations
+							order = 1; //for testing, initializing at first point
+							var previous = "<button class='w3-circle' style='margin-right:10px;' onclick='previousNext(-1)'>&#8249;</button>";
+							var next = "<button class='w3-circle' style='margin-left:10px;' onclick='previousNext(1)'>&#8250;</button>";
+							var selecterList = document.getElementById("selecter");
+							selecter.innerHTML = previous + "<small id='selecterInner'>" + order + " out of " + numOfChoices + "</small>" + next;
+						}//reset two information tables.
+							var examtable = document.getElementById("examtable");
+							var courseInfoTable = document.getElementById("course-info");
+							examtable.innerHTML = "<thead><tr><th>Course</th><th>Date</th><th>Time</th></tr></thead>";
+							courseInfoTable.innerHTML = "<thead><tr><th>Course</th><th>Title</th><th>Index</th></tr></thead>";
+
+							// update course information and exam schedule tables
+							var codeArray = [];
+							var examdateArray = [];
+							var examArray = [];
+							var indexArray = [];
+							var titleArray = [];
+
+							for (i=0; i<obj[pointer].table.length; i++){
+								codeArray[i] = obj[pointer].table[i].course.course_code;
+								indexArray[i] = obj[pointer].table[i].lessons[0].lesson_index;
+								titleArray[i] = obj[pointer].table[i].course.course_name;
+								examArray[i]= obj[pointer].table[i].course.course_exam_date.concat(";",obj[pointer].table[i].course.course_exam_time);
+							}
+
+							// convert array to set to remove repetitive course code
+							var codeSet = new Set(codeArray);
+							var examSet = new Set(examArray);
+							var indexSet = new Set(indexArray);
+							var titleSet = new Set(titleArray);
+
+							//create course information table
+							for (var item = codeSet.values(), val= null; val=item.next().value; ) {
+							 var row = courseInfoTable.insertRow();
+							 var codeCell = row.insertCell();
+							 codeCell.innerHTML = val;
+							}
+							//insert course title column
+							var i = 1;
+							for (var item = titleSet.values(), val= null; val=item.next().value; ) {
+							var titleCell = courseInfoTable.rows[i].insertCell();
+							titleCell.innerHTML = val;
+							i++;
+							}
+							//insert course index column
+							var i = 1;
+							for (var item = indexSet.values(), val= null; val=item.next().value; ) {
+							 var indexCell = courseInfoTable.rows[i].insertCell();
+							 indexCell.innerHTML = val;
+							 i++;
+							}
+						 //insert course code column
+						for (var item = codeSet.values(), val= null; val=item.next().value; ) {
+						 var row = examtable.insertRow();
+						 var codeCell = row.insertCell();
+						 codeCell.innerHTML = val;
+					 }
+
+						 // insert exam date and time
+						 var i = 1;
+						 for (var item = examSet.values(), val= null; val=item.next().value; ) {
+								var dateCell = examtable.rows[i].insertCell();
+								var timeCell = examtable.rows[i].insertCell();
+								var exam = val.split(";");
+								dateCell.innerHTML = exam[0];
+								timeCell.innerHTML = exam[1];
+								i++;
+							}
+
+	/*					}else{
+							// update course info table each time
+							var courseInfoTable = document.getElementById("course-info");
+							var indexArray = [];
+							var titleArray = [];
+							var codeArray = [];
+							for (i=0; i<obj[pointer].table.length; i++){
+								codeArray[i] = obj[pointer].table[i].course.course_code;
+								indexArray[i] = obj[pointer].table[i].lessons[0].lesson_index;
+								titleArray[i] = obj[pointer].table[i].course.course_name;
+							}
+							// convert array to set to remove repetitive course code
+							var indexSet = new Set(indexArray);
+							var codeSet = new Set(codeArray);
+							var titleSet = new Set(titleArray);
+
+							var i = 1;
+							for (var item = codeSet.values(), val= null; val=item.next().value; ) {
+							 var codeCell = courseInfoTable.rows[i].cells[0];
+							 codeCell.innerHTML = val;
+							 i++;
+							}
+							//update course title column
+							var i = 1;
+							for (var item = titleSet.values(), val= null; val=item.next().value; ) {
+							var titleCell = courseInfoTable.rows[i].cells[1];
+							titleCell.innerHTML = val;
+							i++;
+							}
+							//update course index column
+							var i = 1;
+							for (var item = indexSet.values(), val= null; val=item.next().value; ) {
+							 var indexCell = courseInfoTable.rows[i].cells[2];
+							 indexCell.innerHTML = val;
+							 i++;
+							 }
+						}*/
+				// });
+			}
+
+			function myFunc(id) {
+			    var x = document.getElementById(id);
+			    if (x.className.indexOf("w3-show") == -1) {
+			        x.className += " w3-show";
+			    } else {
+			        x.className = x.className.replace(" w3-show", "");
+			    }
+			}
+
+			function toggle_visibility(id) {
+					var e = document.getElementById(id);
+					if(e.style.display == 'block')
+						 e.style.display = 'none';
+					else
+						 e.style.display = 'block';
+			}
+
+		</script>
+
+	</body>
+</html>

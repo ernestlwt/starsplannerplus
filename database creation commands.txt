@@ -1,0 +1,75 @@
+-- Commands used to create database
+
+--create database
+CREATE DATABASE spp DEFAULT CHARACTER SET utf8 COLLATE utf8_unicode_ci;
+
+-- grant priviledges to user
+GRANT ALL ON spp.* TO 'sppuser'@'localhost' IDENTIFIED BY 'St@rsp1annerp1us';
+FLUSH PRIVILEGES;
+
+-- create Course table
+CREATE TABLE spp.Course (
+	course_code VARCHAR(10) NOT NULL,
+	course_name VARCHAR(100) NOT NULL,
+	course_au INT NOT NULL,
+	course_exam_date VARCHAR(20),
+	course_exam_day VARCHAR(20),
+	course_exam_time VARCHAR(20),
+	course_exam_duration VARCHAR(20),
+	course_has_exam TINYINT(1),
+	PRIMARY KEY (course_code)
+);
+
+-- create CourseIndex table
+CREATE TABLE spp.CourseIndex (
+	lesson_index VARCHAR(10) NOT NULL,
+	course_code VARCHAR(10) NOT NULL,
+	PRIMARY KEY (lesson_index),
+	FOREIGN KEY (course_code) REFERENCES spp.Course(course_code)
+);
+
+-- create Lesson table
+CREATE TABLE spp.Lesson (
+	lesson_id int NOT NULL AUTO_INCREMENT,
+	lesson_index VARCHAR(10) NOT NULL,
+	lesson_type VARCHAR(10),
+	lesson_group VARCHAR(10),
+	lesson_day VARCHAR(10),
+	lesson_time VARCHAR(20),
+	lesson_venue VARCHAR(20),
+	lesson_remarks VARCHAR(20),
+	PRIMARY KEY (lesson_id),
+	FOREIGN KEY (lesson_index) REFERENCES spp.CourseIndex(lesson_index)
+);
+
+-- create User table
+CREATE TABLE spp.User (
+	user_email VARCHAR(100) NOT NULL,
+	user_password VARCHAR(100) NOT NULL,
+	PRIMARY KEY(user_email)
+);
+
+-- create Timetable Table
+CREATE TABLE spp.Timetable (
+	timetable_id int NOT NULL AUTO_INCREMENT,
+	timetable_number int NOT NULL,
+	user_email VARCHAR(100) NOT NULL,
+	PRIMARY KEY(timetable_id),
+	FOREIGN KEY(user_email) REFERENCES spp.User(user_email)
+);
+
+-- create Timetable_Index
+CREATE TABLE spp.Timetable_Index (
+	timetable_id int NOT NULL,
+	lesson_index VARCHAR(10) NOT NULL,
+	PRIMARY KEY(timetable_id , lesson_index),
+	FOREIGN KEY(timetable_id) REFERENCES spp.Timetable(timetable_id),
+	FOREIGN KEY(lesson_index) REFERENCES spp.CourseIndex(lesson_index)
+);
+
+-- delete all records from a table
+
+DELETE FROM Lesson;
+DELETE FROM CourseIndex;
+DELETE FROM Course;
+DELETE FROM User;
